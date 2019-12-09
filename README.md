@@ -59,8 +59,8 @@ The code is written by [Alexander Liptak](https://www.fusion-cdt.ac.uk/student/a
 <div>
 
 <div>
-    <img style="float: left" src="https://intranet.royalholloway.ac.uk/staff/assets/img/brand-toolkit/colour-logo-new.png" alt="RHUL logo" height=125px>
-    <img style="float: right;" src="http://www.castep.org/files/CASTEP_Logo_mini-01.png" alt="CASTEP logo" height=125px>
+    <img src="https://intranet.royalholloway.ac.uk/staff/assets/img/brand-toolkit/colour-logo-new.png" alt="RHUL logo" height=125px align="left">
+    <img src="http://www.castep.org/files/CASTEP_Logo_mini-01.png" alt="CASTEP logo" height=125px align="right">
 </div>
 
 
