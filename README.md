@@ -31,13 +31,38 @@
 
 # Description
 
-`testgrids.py` is a script written in Python 3 that automates the creation, submission and analysis of CASTEP jobs in order to determine the optimal `FINE_GRID_SIZE` value for all supported elements.
+`testgrids.py` is a script written in Python 3 that automates the creation, submission and analysis of CASTEP jobs in order to determine the optimal `FINE_GRID_SIZE` value for that simulation.
 
-# README
+This script is able to automatically generate custom data sets with a uniformly varying `FINE_GRID_SIZE` parameter, which are then submitted as CASTEP jobs to a SLURM Workload Manager queue. The data from completed (or failed) jobs is then aggregated, analysed, plotted and summarised into both machine- and human-readable files.
 
-test
+Ultimately, the goal of any future work on this script would be the determination of a set of `FINE_GMAX` values corresponding to `FINE_GRID_SIZE` precision levels from `COARSE` to `EXTREME` for all supported elements.
+
+# Readme
+
+Please consult the README [PDF document](https://github.com/ajulik1997/testgrids/blob/master/README.pdf) for information regarding the following:
+
+- installation procedure
+- required and optional dependencies
+- usage examples for a number of different use-cases
+- summary of available parameters, their default and accepted values
+- tips for troubleshooting various error and warning messages
+- summary of possible return codes and their meaning
+- overview of the code for future development
+- analysis of format used by all output files
+
+The README document is typeset using `LaTeX`, with the source code available in [`testgrids/LaTeX`](https://github.com/ajulik1997/testgrids/tree/master/LaTeX).
 
 # Authors
 
-test
+The code is written by [Alexander Liptak](https://www.fusion-cdt.ac.uk/student/alexander-liptak), under the supervision of [Prof. Keith Refson](https://pure.royalholloway.ac.uk/portal/en/persons/keith-refson(b347917c-bce2-4b5c-b3fe-2c2fd8c71616).html), as part of the 2019 UKCP Summer Project carried out at the Royal Holloway University of London.
 
+<table align="center", border="0">
+    <tr>
+        <td>
+            <img src="https://intranet.royalholloway.ac.uk/staff/assets/img/brand-toolkit/colour-logo-new.png", alt="RHUL logo", height="100">
+        </td>
+        <td>
+            <img src="http://www.castep.org/files/CASTEP_Logo_mini-01.png", alt="CASTEP logo", height="100">
+        </td>
+    </tr>
+</table>
