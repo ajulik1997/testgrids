@@ -56,13 +56,12 @@ The README document is typeset using `LaTeX`, with the source code available in 
 
 The code is written by [Alexander Liptak](https://www.fusion-cdt.ac.uk/student/alexander-liptak), under the supervision of [Prof. Keith Refson](https://pure.royalholloway.ac.uk/portal/en/persons/keith-refson(b347917c-bce2-4b5c-b3fe-2c2fd8c71616).html), as part of the 2019 UKCP Summer Project carried out at the Royal Holloway University of London.
 
-<table align="center", border="0">
-    <tr>
-        <td>
-            <img src="https://intranet.royalholloway.ac.uk/staff/assets/img/brand-toolkit/colour-logo-new.png", alt="RHUL logo", height="100">
-        </td>
-        <td>
-            <img src="http://www.castep.org/files/CASTEP_Logo_mini-01.png", alt="CASTEP logo", height="100">
-        </td>
-    </tr>
-</table>
+<div>
+
+<div>
+    <img style="float: left;", src="https://intranet.royalholloway.ac.uk/staff/assets/img/brand-toolkit/colour-logo-new.png", alt="RHUL logo", height="125">
+    <img style="float: right;" src="http://www.castep.org/files/CASTEP_Logo_mini-01.png", alt="CASTEP logo", height="125">
+</div>
+
+
+
