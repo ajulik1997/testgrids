@@ -1,0 +1,97 @@
+\documentclass[article]{revtex4}
+\usepackage{amssymb,amsfonts,amsmath,graphicx,verbatim,bbm,color,relsize,hyperref,dsfont,textcomp,ragged2e,siunitx,url,wrapfig,tabularx,chngpage,tikz,pdflscape,forest,placeins}
+\usepackage[a4paper, portrait, margin=25mm]{geometry}
+%\usepackage[utf8]{inputenc}
+\hyphenpenalty=1000
+
+\def\bibsection{\section*{\refname}}
+\usepackage[tablename=Table]{caption}
+\renewcommand*\thetable{\arabic{table}}
+
+\definecolor{codegray}{gray}{0.9}
+\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
+
+\renewcommand{\figurename}{Figure}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+\vspace*{2cm}
+
+\noindent\rule{\textwidth}{1pt}\vspace{0.5cm}
+
+{\Large \textbf{Automatic fine-grid determination for CASTEP OTF pseudopotentials}}
+
+\vspace{0.5cm}
+
+{\large UKCP Summer Project}
+
+\vspace{0.5cm}\noindent\rule{\textwidth}{1pt}
+
+\vspace{1cm}
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+Alexander \textsc{Lipták}
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+Prof. Keith \textsc{Refson}
+\end{flushright}
+\end{minipage}\\[1cm]
+
+{\large \today}
+
+\vspace{2cm}
+    
+{\large \emph{Abstract:}}
+
+\vspace{0.5cm}
+
+\begin{justify}
+{
+This document summarises the objectives and results of the two-stage 2019 UKCP Summer Project carried out at Royal Holloway University of London, and also acts as a documentation and user guide to the software that was developed. The first stage of the project involved the development of a Python script to automate the creation, submission and analysis of CASTEP jobs in order to determine the optimal FINE\_GRID\_SIZE values for all supported elements. The second stage, although unfinished, involved making changes to the on-the-fly pseudopotential generator used by CASTEP in order to obtain per-element charge-density plots of the generated pseudopotentials.
+}
+\end{justify}
+
+\vspace*{\fill}
+
+\begin{minipage}{0.35\textwidth}
+\begin{flushleft}
+\includegraphics[height=2.6cm]{rhul_logo.jpg}
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.63\textwidth}
+\begin{flushright}
+\includegraphics[height=2.6cm]{castep_logo.png}
+\end{flushright}
+\end{minipage}
+
+\end{center}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+
+\newpage
+
+\input{body}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\bibliographystyle{apsrev}
+\bibliography{references}
+
+\end{document}
