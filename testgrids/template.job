@@ -1,0 +1,19 @@
+#! /bin/bash
+#
+#SBATCH --job-name {0}
+#SBATCH --nodes={1}
+#SBATCH --ntasks={2}
+#SBATCH --output={0}_%a/{0}_%a.out
+#SBATCH --array=0-{3}
+#SBATCH --time=01:00:00
+#SBATCH --mail-type=NONE
+#SBATCH --no-requeue
+#SBATCH --reservation={4}
+
+cd "$PBS_O_WORKDIR"
+
+export CASTEP_TMPDIR=/tmp
+#export OMP_NUM_THREADS=1
+#export GOTO_NUM_THREADS=1
+
+mpirun -np {2} $(which castep.mpi) {0}_$SLURM_ARRAY_TASK_ID/{0}_$SLURM_ARRAY_TASK_ID
