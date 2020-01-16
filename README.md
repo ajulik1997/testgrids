@@ -50,7 +50,7 @@ Please consult the README [PDF document](https://github.com/ajulik1997/testgrids
 - overview of the code for future development
 - analysis of format used by all output files
 
-The `README.pdf` document is typeset using `LaTeX`, with the source code available in [`testgrids/README`](https://github.com/ajulik1997/testgrids/tree/master/LaTeX).
+The `README.pdf` document is typeset using `LaTeX`, with the source code available in [`testgrids/README`](https://github.com/ajulik1997/testgrids/tree/master/README).
 
 # Authors
 
