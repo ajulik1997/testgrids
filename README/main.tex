@@ -15,6 +15,28 @@
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Required by tikz figure
+
+\usepackage{physics}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shadows.blur}
+\usetikzlibrary{shapes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
@@ -58,7 +80,7 @@ Prof. Keith \textsc{Refson}
 
 \begin{justify}
 {
-This document summarises the objectives and results of the two-stage 2019 UKCP Summer Project carried out at Royal Holloway University of London, and also acts as a documentation and user guide to the software that was developed. The first stage of the project involved the development of a Python script to automate the creation, submission and analysis of CASTEP jobs in order to determine the optimal FINE\_GRID\_SIZE values for all supported elements. The second stage, although unfinished, involved making changes to the on-the-fly pseudopotential generator used by CASTEP in order to obtain per-element charge-density plots of the generated pseudopotentials.
+This document summarises the objectives and results of the 2019 UKCP Summer Project carried out at Royal Holloway University of London, and also acts as a documentation and user guide to the software that was developed. The project involved the development of a Python script to automate the creation, submission and analysis of CASTEP jobs in order to determine the optimal \texttt{FINE\_GRID\_SIZE} values for all supported elements.
 }
 \end{justify}
 

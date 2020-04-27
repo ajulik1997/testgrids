@@ -1,14 +1,14 @@
 \section{Motivation}
 
-CASTEP is a leading academic and commercial software package which uses density functional theory to calculate the electronic properties of materials from first principles. One of CASTEP's unique selling points is its ease-of-use for scientists who are not experts in electronic structure theory or numerical methods, that is mainly achieved by intelligent automatic selection of default values for many of the convergence parameters as well as allowing for the selection of precision of most aspects of a calculation from a short list of discrete levels (from COARSE to EXTREME).
+CASTEP is a leading academic and commercial software package which uses density functional theory to calculate the electronic properties of materials from first principles. One of CASTEP's unique selling points is its ease-of-use for scientists who are not experts in electronic structure theory or numerical methods, that is mainly achieved by intelligent automatic selection of default values for many of the convergence parameters as well as allowing for the selection of precision of most aspects of a calculation from a short list of discrete levels (from \texttt{COARSE} to \texttt{EXTREME}).
 
 Despite this, there is no such intelligent selection available for setting the density of the fine FFT grid used for the on-the-fly (OTF) generation of pseudopotentials, and CASTEP currently defaults to a fine grid size identical to the standard grid used for calculating the Kohn-Sham orbitals. However, this default setting is inadequate for the default OTF pseudopotentials describing a majority of the elements in the periodic table, which require a much finer grid to represent an atom's pseudized core and ultrasoft augmentation charge densities. Additionally, the fine grid density is one of the most difficult parameters to test for convergence due to its strong correlation with plane-wave cutoff, and as a result, many CASTEP calculations are either under-converged (compromising accuracy) or over-converged (wasting CPU time).
 
-This project aimed to remedy this shortcoming by developing and testing scripts for determining a set of FINE\_GMAX values corresponding to FINE\_GRID\_SIZE precision levels from COARSE to EXTREME for a number of supported elements. This database of FINE\_GMAX values would be generated for the C19, QC5 and NCP19 pseudopotential libraries and will be implemented into CASTEP using a lookup table.
+This project aimed to remedy this shortcoming by developing and testing scripts for determining a set of \texttt{FINE\_GMAX} values corresponding to \texttt{FINE\_GRID\_SIZE} precision levels from COARSE to EXTREME for a number of supported elements. This database of FINE\_GMAX values would be generated for the C19, QC5 and NCP19 pseudopotential libraries and will be implemented into CASTEP using a lookup table.
 
-The document is split into two section representing the two major stages of the project. Any code that has been developed is described in detail, including a discussion of any prerequisites, troubleshooting, customisation and frequent use-cases.
+The code that has been developed is described in detail in the following section, including a discussion of any prerequisites, troubleshooting, customisation and frequent use-cases.
 
-\section{Section 1: testgrids.py}
+\section{testgrids.py}
 
 \code{testgrids.py} is a Python 3 script for investigating the behaviour of CASTEP simulations with a varying FINE\_GRID\_SIZE parameter for all supported elements. The script takes care of generating test data, submitting it to the SLURM Workload Manager (SLURM), monitoring the SLURM queue, extracting and plotting the relevant data, as well as saving all relevant data to both machine- and human-readable files.
 
@@ -184,7 +184,7 @@ This section provides examples of common use case scenarios of \code{testgrids.p
     \hline 
     \textbf{CONCISE}: & \code{python testgrids.py -pr y -st y} \\
     \hline 
-    \textbf{NOTE:} & Choosing to run calculations on elemental crystals in their primitive unit cell instead of the default ground state structure will allow for faster calculations, however, the results will no longer be interpretable in the same way as those quoted on the $\Delta$-project website. Enabling calculations of the stress tensor will instead increase the total calculation time. The pressure (in GPa) will be visible in the \code{name.table.txt} file, however, this setting should have no effect on the generated plots. \\
+    \textbf{NOTE:} & Choosing to run calculations on elemental crystals in their primitive unit cell instead of the default ground state structure will allow for faster calculations, however, the results will no longer be interpretable in the same way as those quoted on the $\Delta$-project website. Enabling calculations of the stress tensor will also increase the total calculation time. The pressure (in GPa) will be visible in the \code{name.table.txt} file, however, this setting should have no effect on the generated plots. \\
     \hline \hline 
 \end{tabular}
 
@@ -382,7 +382,7 @@ Although care has been taken to select a set of default parameters that minimise
 \code{[DEBUG] discarded as EOS} \code{fitting function returned} \code{a negative bulk modulus} \code{derivative} & NCE & This non-critical error is simmilar to the previous one: it results from an inadequate fit, can be remedied in the same ways as the previous error, and also results in a $\Delta$ value being omitted. The difference between them is that this error is triggered when the EOS fitting function returns a negative bulk modulus derivative - an unphysical result.  \\ \hline \hline
 \end{tabularx}
 \caption{Summary of all possible non-critical errors and warnings, presented in order of the execution stage during which they can occur; [NCE] = Non-critical error, [W] = Warning}
-\label{tab:my-table}
+\label{tab:troubleshooting1}
 \end{table}
 
 \begin{table}[h]
@@ -413,38 +413,86 @@ Although care has been taken to select a set of default parameters that minimise
 \code{69} & uncaught exception while deleting semaphores & Inspect error message for more details \\ \hline \hline
 \end{tabularx}
 \caption{Summary of all possible critical errors. As all of these errors cease the execution of the script, the corresponding return codes are also provided.}
-\label{tab:my-table}
+\label{tab:troubleshooting2}
 \end{table}
 
+When debugging, it is possible to use the \code{--debug} flag to skip to a various execution points of the code. This is useful when an uncaught exception occurs in a part of the code; when adequate changes are made, the code execution can resume at around that point (assuming all prerequisites for code execution at that point are met). If ``resuming'' code execution this way, the same parameters must be used as those that were used previously, and for which runtime-related files have already been created. The table below gives a full list of allowed \code{--debug} values:
 
-% talk about all possible ways the simulation can fail. .err files, error in out, warnings, eos fit fail (complex, None, delta), no minimum can be foudn
-
-% debug mode
+\begin{table}[h]
+\begin{tabularx}{1\linewidth}{|c|>{\hsize=1\hsize\linewidth=\hsize}Y|}
+\hline
+\textbf{Debug level} & \textbf{Notes} \\ \hline
+0 (default) & Code runs from beginning to end with minimal verbosity \\ \hline
+1 & Code runs from beginning to end with increased verbosity \\ \hline
+2 & Code skips initial cleaning of semaphores and cleaning of working directory; execution starts at generation of job data \\ \hline
+3 & Code skips everything mentioned above; execution starts at sending jobs to SLURM queue \\ \hline
+4 & Code skips everything mentioned above; execution starts at analysis and plotting of data from completed simulations. \\ \hline
+5 & Code skips everything mentioned above; execution starts at final semaphore cleanup and removal of working directory (if \code{--clean} is \code{True}) \\ \hline
+\end{tabularx}
+\caption{List of allowed debug levels and their effect.}
+\label{tab:troubleshooting3}
+\end{table}
 
 \subsection{Overview of code}
 
+This section explores the code in more detail; the inputs, outputs and purpose of all functions is discussed in order of code execution. A flowchart summarising this information is also included below. As the signatures of all functions are described here, this section can be helpful as a reference when modifying or upgrading the code, or implementing existing functions into your own code.
 
+\newpage
+\input{codeflow.tikz}
+\newpage
 
-%debugging section
+\vspace{0.75cm} \noindent
+\begin{tabular}{ m{2.5cm} m{13.2cm} }
+    \hline \hline
+    \textbf{FUNCTION}: & \code{setup\_argparse} \\
+    \hline
+    \textbf{INPUT}: & \code{None} \\  
+    \hline
+    \textbf{OUTPUT}: & \code{argparse.ArgumentParser} object \\   
+    \hline
+    \textbf{PURPOSE:} & Sets up parser for command-line arguments; this includes setting argument names, their abbreviated form, allowed types, default values and description of each argument as well as the script as a whole to be shown when \code{--help} is used. A custom type \code{\_str2bool} has been implemented via a private function that attempts to infer boolean values from their common textual representations. Besides settings up the parser, the function is useful for entry-level parsing checks (argument type check, missing required argument), as execution does not continue and the user is informed of the argument requirements if these checks are not satisfied. The parser is then returned. \\
+    \hline \hline
+\end{tabular} 
 
+\vspace{0.75cm} \noindent
+\begin{tabular}{ m{2.5cm} m{13.2cm} }
+    \hline \hline
+    \textbf{FUNCTION}: & \code{parse\_args} \\
+    \hline
+    \textbf{INPUT}: & \code{parser} of type \code{argparse.ArgumentParser} \\  
+    \hline
+    \textbf{OUTPUT}: & \code{argparse.Namespace} object \\   
+    \hline
+    \textbf{PURPOSE:} & Uses previously setup parser to parse arguments passed to \code{sys.argv}, and verifies whether the arguments are valid. If \code{--load} is specified, only this argument is processed, and a check is performed whether the argument points to an existing file. If not loading data, the rest of the arguments are processed, terminating the execution with an appropriate message if a check fails. The module specified in \code{--castep} is temporarily loaded to test whether it exists. If \code{--cif\_dir} is specified, check whether it points to a valid directory, if not, set up directory to one of the internal directories depending on whether the \code{--primitive} flag is used or not. If \code{--element} is not specified, the previously determined directory is scanned for all available elements. \code{--basis\_prec}, \code{--mixing\_scheme}, \code{--pseudo\_pot}, and \code{--xc\_functional} are compared against their respective available options. The rest of the arguments are then checked whether they are not out of their respective bounds. The \code{Namespace} object containing all arguments and their values is then returned. \\
+    \hline \hline
+\end{tabular}
 
+\vspace{0.75cm} \noindent
+\begin{tabular}{ m{2.5cm} m{13.2cm} }
+    \hline \hline
+    \textbf{FUNCTION}: & \code{load\_data} \\
+    \hline
+    \textbf{INPUT}: & \code{pickle\_file} of type \code{str} \\  
+    \hline
+    \textbf{OUTPUT}: & \code{dict} of element names as keys, and a \code{dict} of array and array-name pairs as values for each element key \\
+    \hline
+    \textbf{PURPOSE:} & Function simply opens a file handle to the file specified in \code{pickle\_file} for binary reading only, and the pickled dictionary is loaded and returned. \\
+    \hline \hline
+\end{tabular}
 
-% talk about _string2bool
-
-% layout of code and notes, so people can follow it if they read it
-
-% code usage etc, function descriptions
-
-% talk about what happens when some arguments exceed recommended limits are selected
+\vspace{0.75cm} \noindent
+\begin{tabular}{ m{2.5cm} m{13.2cm} }
+    \hline \hline
+    \textbf{FUNCTION}: & \code{cleanup\_wkdir} \\
+    \hline
+    \textbf{INPUT}: & \code{job\_name} of type \code{str} \\  
+    \hline
+    \textbf{OUTPUT}: & \code{None} \\
+    \hline
+    \textbf{PURPOSE:} & Function recursively deletes any directory with the name/path \code{job\_name} if it exists. This is either carried out in preparation of a new job with the same name, or to clean up after a completed job is \code{--clean} is specified. \\
+    \hline \hline
+\end{tabular}
 
 \subsection{Analysis of Output}
 
 % graphs, talk about meaning, etc
-
-%\section{}
-
-%\newpage
-
-%\begin{landscape}
-%\include{S1_flowchart.tex}
-%\end{landscape}
